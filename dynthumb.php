@@ -29,6 +29,9 @@ $allowed_domains = array(
 
 $source = $_GET['src'];
 $uri_components = parse_url($_GET['src']);
+$width = isset($_GET['w']) ? abs(intval($_GET['w'])) : 0;
+$height = isset($_GET['h']) ? abs(intval($_GET['h'])) : 0;
+$zc = isset($_GET['zc']) ? intval($_GET['zc']) : 0;
 
 if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed_domains))
 	trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
