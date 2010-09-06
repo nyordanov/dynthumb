@@ -26,3 +26,9 @@ if(DEBUG == true) {
 $allowed_domains = array(
 	'flickr.com'
 );
+
+$source = $_GET['src'];
+$uri_components = parse_url($_GET['src']);
+
+if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed_domains))
+	trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
