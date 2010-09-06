@@ -47,3 +47,7 @@ if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed
 	if($bad_domain)
 		trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
 }
+
+$image_handle = fopen($source, 'rb');
+$image = new Imagick();
+$image->readimagefile($image_handle);
