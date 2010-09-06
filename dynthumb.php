@@ -17,6 +17,7 @@
  */
 
 define('DEBUG', true); // set to false in production
+define('ALLOW_SUBDOMAINS', true); // allow pictures to be on a subdomain of allowed host
 
 if(DEBUG == true) {
 	error_reporting(E_ALL);
@@ -33,5 +34,16 @@ $width = isset($_GET['w']) ? abs(intval($_GET['w'])) : 0;
 $height = isset($_GET['h']) ? abs(intval($_GET['h'])) : 0;
 $zc = isset($_GET['zc']) ? intval($_GET['zc']) : 0;
 
-if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed_domains))
-	trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
+if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed_domains)) {
+	$bad_domain = true;
+	
+	if(ALLOW_SUBDOMAINS === true)
+		foreach($allowed_domains as $domain)
+			if(preg_match('/\.' . str_replace('.', '\.', $domain) . '$/i', $uri_components['host'])) {
+				$bad_domain = false;
+				break;
+			}
+			
+	if($bad_domain)
+		trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
+}
