@@ -51,3 +51,6 @@ if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed
 $image_handle = fopen($source, 'rb');
 $image = new Imagick();
 $image->readimagefile($image_handle);
+
+header('Content-Type: image/' . $image->getImageFormat());
+echo $image;
