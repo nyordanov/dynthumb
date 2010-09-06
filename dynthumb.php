@@ -14,6 +14,7 @@
  * @example /dynthumb.php?src=pic.jpg&w=100&h=100&zc=1
  * 
  * @version 1.0
+ * @license CC-by
  */
 
 define('DEBUG', true); // set to false in production
