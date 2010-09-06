@@ -52,5 +52,15 @@ $image_handle = fopen($source, 'rb');
 $image = new Imagick();
 $image->readimagefile($image_handle);
 
+if($zc) {
+	
+}
+else
+	try {
+		$image->thumbnailimage($width, $height, true);	
+	} catch(ImagickException $e) {
+		trigger_error($e->getMessage(), E_USER_ERROR);
+	}
+
 header('Content-Type: image/' . $image->getImageFormat());
 echo $image;
