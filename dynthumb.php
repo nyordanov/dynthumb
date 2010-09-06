@@ -53,7 +53,11 @@ $image = new Imagick();
 $image->readimagefile($image_handle);
 
 if($zc) {
-	
+	try {
+		$image->cropthumbnailimage($width, $height);
+	} catch (ImagickException $e) {
+		trigger_error($e->getMessage(), E_USER_ERROR);
+	}
 }
 else
 	try {
