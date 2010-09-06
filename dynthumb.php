@@ -48,7 +48,13 @@ if(isset($uri_components['host']) && !in_array($uri_components['host'], $allowed
 		trigger_error('Host not allowed: ' . $uri_components['host'], E_USER_ERROR);
 }
 
-$image_handle = fopen($source, 'rb');
+if(isset($uri_components['host']) || file_exists($source))
+	$image_handle = fopen($source, 'rb');
+else if(file_exists($_SERVER['DOCUMENT_ROOT'] . $source))
+	$image_handle = fopen($_SERVER['DOCUMENT_ROOT'] .$source, 'rb');
+else
+	trigger_error('Image file (src) not found', E_USER_ERROR);
+	
 $image = new Imagick();
 $image->readimagefile($image_handle);
 
