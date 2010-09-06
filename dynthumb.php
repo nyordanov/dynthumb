@@ -72,5 +72,9 @@ else
 		trigger_error($e->getMessage(), E_USER_ERROR);
 	}
 
+$cache_time = 157680000;
+header('Cache-Control: max-age=' . $cache_time . ',must-revalidate');
+header('Expires: ' . gmdate("D, d M Y H:i:s", time() + $cache_time));
+
 header('Content-Type: image/' . $image->getImageFormat());
 echo $image;
